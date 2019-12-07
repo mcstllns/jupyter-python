@@ -29,21 +29,24 @@ print("Desea actualizar? [y/n]: ")
 ans = input()
 
 if (ans == 'y'):
-    for user in content:    
+    for user in content:
         print("Actualizando: " + user)
+
+        """
         # crea el directorio si no existe
         cad = "mkdir {}/jupyter-{}/{}".format(config.home, user, config.updateDst)
-        try:         
+        try:
             os.system(cad)
         except:
             pass
-        
+        """
+
         # copia los ficheros
-        cad = "cp -r {}/* {}/jupyter-{}/{}/".format(config.updateSrc,config.home, user, config.updateDst) 
+        cad = "cp -r {}/* {}/jupyter-{}/".format(config.updateSrc,config.home, user)
         os.system(cad)
 
         # cambia los privilegios desde root al usuario
-        cad = "chown -R jupyter-{}:jupyter-{} {}/jupyter-{}/{}/".format(user,user,config.home, user, config.updateDst) 
+        cad = "chown -R jupyter-{}:jupyter-{} {}/jupyter-{}/".format(user,user,config.home, user) 
         os.system(cad)
 else:
     print("No se ha actualizado nada")

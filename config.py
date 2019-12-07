@@ -1,5 +1,5 @@
 admins = ['miguel']
 home = '/home'
 usersFile = 'usersList.txt'
-updateSrc = '/home/miguel/updates'
-updateDst = 'update'
+updateSrc = '/home/jupyter-miguel/updates'
+#updateDst = 'update'
