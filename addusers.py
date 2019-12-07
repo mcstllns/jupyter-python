@@ -10,7 +10,7 @@
 # > addusers.py fileWithUserNames
 
 
-import os
+import os, sys
 
 # filename = "/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt"
 

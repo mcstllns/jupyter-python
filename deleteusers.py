@@ -11,11 +11,16 @@
 
 import os, sys
 
-adminID = 'jupyter-admin'
+adminID = 'miguel'
 
-#f = open("/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt", "r")
+# filename = "/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt"
 
-filename = "/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt"
+if len(sys.argv)-1 != 1:
+    print('ERROR: Sintaxis: {} fileWithUserNames'.format(sys.argv[0])) 
+    sys.exit()
+
+
+filename = sys.argv[1]
 
 
 with open(filename) as f:
@@ -24,6 +29,7 @@ f.close()
 
 content = [x.strip() for x in content] 
 
+print("-----------------------------------")
 print("Borramos usuarios de jupyterHub")
 for user in content:
     if adminID not in user:

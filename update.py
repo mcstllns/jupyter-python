@@ -16,11 +16,13 @@
 # A los que pertenecen al grupo jupyterhub-admins no se les actualiza
 
 
+# OJO: Si la carpeta ya existe no va a funcionar
+
 import sys, os, shutil
 
 Dst = "/home"
 cadID = 'jupyter-'
-adminID = 'jupyter-admin'
+adminID = 'miguel'
 
 if len(sys.argv)-1 != 1:
     print('Sintaxis: {} pathToSrc'.format(sys.argv[0])) 
@@ -67,12 +69,11 @@ def changeOwner(Dest, owner, group):
 
 
 def deleteHome(path):
-    for root, dirs, files in os.walk(path):
-        for f in files:
-            os.unlink(os.path.join(root, f))
-        for d in dirs:
-            shutil.rmtree(os.path.join(root, d))
-
+  for root, dirs, files in os.walk(path):
+   for f in files:
+    os.unlink(os.path.join(root, f))
+   for d in dirs:
+    shutil.rmtree(os.path.join(root, d))
 
 # -----------------------------------------------------------------
 
@@ -88,7 +89,7 @@ for user in Users:
     if adminID not in user['home']:
         print('Updating:  ' + user['home'])
         
-        deleteHome(user['home'])
+        # deleteHome(user['home'])
 
         for d in dirs: 
             try:
