@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # ------------------------------------------------------
 #   Miguel A. Castellanos, Diciembre 2019
@@ -10,69 +10,13 @@
 
 # > update.py path/to/src
 
-import os
-import config
+# Cuando se ejecuta va a borrar lo que hay en el home de los usuarios
+# de jupyter y poner lo que hay en la carpeta path/to/src
+
+# A los que pertenecen al grupo jupyterhub-admins no se les actualiza
 
 
-with open(config.usersFile) as f:
-    content = f.readlines()
-f.close()
-
-content = [x.strip() for x in content]
-
-print("")
-print("------------------------------")
-print("Se va a ACTUALIZAR desde {} a {}/.../{}: ".format(config.updateSrc, config.home, config.updateDst))
-
-print(" ")
-print("Desea actualizar? [y/n]: ")
-ans = input()
-
-if (ans == 'y'):
-    for user in content:    
-        print("Actualizando: " + user)
-        # crea el directorio si no existe
-        cad = "mkdir {}/jupyter-{}/{}".format(config.home, user, config.updateDst)
-        try:         
-            os.system(cad)
-        except:
-            pass
-        
-        # copia los ficheros
-        cad = "cp -r {}/* {}/jupyter-{}/{}/".format(config.updateSrc,config.home, user, config.updateDst) 
-        os.system(cad)
-
-        # cambia los privilegios desde root al usuario
-        cad = "chown -R jupyter-{}:jupyter-{} {}/jupyter-{}/{}/".format(user,user,config.home, user, config.updateDst) 
-        os.system(cad)
-else:
-    print("No se ha actualizado nada")
-
-print("Terminado") 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-
+# OJO: Si la carpeta ya existe no va a funcionar
 
 import sys, os, shutil
 
@@ -156,4 +100,3 @@ for user in Users:
             shutil.copyfile(f, user['home'] + '/' + f.replace(Src,''))
         changeOwner(user['home'], user['owner'], user['group'])
 
-"""

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # ------------------------------------------------------
 #   Miguel A. Castellanos, Diciembre 2019
@@ -9,32 +9,33 @@
 
 # > deleteusers.py fileWithUserNames
 
-import os, sys
 
-adminID = 'miguel'
-
-# filename = "/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt"
-
-if len(sys.argv)-1 != 1:
-    print('ERROR: Sintaxis: {} fileWithUserNames'.format(sys.argv[0])) 
-    sys.exit()
+import os
+import config
 
 
-filename = sys.argv[1]
-
-
-with open(filename) as f:
+with open(config.usersFile) as f:
     content = f.readlines()
 f.close()
 
 content = [x.strip() for x in content] 
 
-print("-----------------------------------")
-print("Borramos usuarios de jupyterHub")
-for user in content:
-    if adminID not in user:
-        print("Borrando: " + user)
-        os.system("deluser --remove-home jupyter-"+user)
+print("")
+print("------------------------------")
+print("Se van a ELIMINAR los siguientes usuarios :", content)
+print(" ")
+print("Desea eliminarlos? [y/n]: ")
+ans = input()
 
-print("Terminado")
+if (ans == 'y'):
+    for user in content:
+        print("Eliminando: " + user)
+        os.system("deluser --remove-home jupyter-"+user)
+else:
+    print("No se ha eliminado ningun usuario")
+
+print("Terminado") 
+
+
+
 

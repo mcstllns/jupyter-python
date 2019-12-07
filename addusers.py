@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # ------------------------------------------------------
 #   Miguel A. Castellanos, Diciembre 2019
@@ -7,32 +7,33 @@
 #
 # Este codigo se creo para gestionar jupyterHub, lo que hace es crear usuarios
 
-# > addusers.py fileWithUserNames
+# > addusers.py 
+# Lee la configuracion de config.py
+# ejecutar con privilegios
+
+import os
+import config
 
 
-import os, sys
-
-# filename = "/home/miguel/Desktop/Desarrollo/pruebasPy/usersList.txt"
-
-
-if len(sys.argv)-1 != 1:
-    print('ERROR: Sintaxis: {} fileWithUserNames'.format(sys.argv[0])) 
-    sys.exit()
-
-
-filename = sys.argv[1]
-
-print("-----------------------------------")
-
-with open(filename) as f:
+with open(config.usersFile) as f:
     content = f.readlines()
 f.close()
 
-content = [x.strip() for x in content] 
+content = [x.strip() for x in content]
 
-print("Creamos nuevos usuarios de jupyterHub")
-for user in content:
-    print("Creando: " + user)
-    os.system("useradd  --create-home --user-group --groups jupyterhub-users jupyter-"+user)
+print("")
+print("------------------------------")
+print("Se van a CREAR los siguientes usuarios :", content)
+print(" ")
+print("Desea crearlos? [y/n]: ")
+ans = input()
 
-print("Terminado")
+if (ans == 'y'):
+    for user in content:
+        print("Creando: " + user)
+        os.system("useradd  --create-home --user-group --groups jupyterhub-users jupyter-"+user)
+else:
+    print("No se ha creado ningun usuario")
+
+print("Terminado") 
+
